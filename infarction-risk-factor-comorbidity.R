@@ -139,7 +139,7 @@ plotter2 <- function(var) {
                lwr = as.numeric(plogis(fit - qnorm(0.975)*se.fit)),
                upr = as.numeric(plogis(fit + qnorm(0.975)*se.fit)))))
   predgrid2$X.9..Felvétel.időpontja <- as.Date(predgrid2$FelvetelNum + as.numeric(as.Date("2014-01-01")))
-
+  
   ggplot(predgrid2,
          aes(x = X.9..Felvétel.időpontja, y = pred, ymin = lwr, ymax = upr,
              color = factor(Eletkor), fill = factor(Eletkor))) +
@@ -171,7 +171,7 @@ temp <- parallel::parLapply(
   cl, c("X.30..Kórelőzményben.vagy.a.kezelés.során.megállapított.hypertonia",
         "BMI30felett", "Dohanyzik", "X.34..Kórelőzményben.hyperlipidaemia",
         "X.32..Kórelőzményben..vagy.a.kezelés.során.megállapított.diabetes"),
-  function(v) ggsave(paste0("", v, "_agespecific.pdf"), plotter2(v),
+  function(v) ggsave(paste0(v, "_agespecific.pdf"), plotter2(v),
                      width = 16, height = 9, device = cairo_pdf))
 
 parallel::stopCluster(cl)
